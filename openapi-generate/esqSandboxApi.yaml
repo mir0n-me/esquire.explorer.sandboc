@@ -1,0 +1,325 @@
+openapi: 3.0.0
+servers:
+  - url: 'localhost'
+info:
+  description: >-
+    This is a simplified Esquire Rest API for an inital sandbox environment.
+  version: 1.0.0
+  title: Esquire Frameworks(tm) sandbox API
+  license:
+    name: Apache-2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: esquire
+    description: Everything you need to browse Esquire tree
+paths:
+  /esq:
+    get:
+      tags:
+        - esquire
+      summary: Retrieve list of tree nodes
+      description: Retrieve list of child tree nodes for the node
+      operationId: esquire
+      parameters:
+        - name: id
+          in: query
+          description: parent node id or missed to obtain root nodes
+          required: false
+          schema:
+            type: string
+        - name: skip
+          in: query
+          description: number of nodes to skip
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: take
+          in: query
+          description: number of nodes to obtain
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EsqTreeNode'
+        '405':
+          description: Invalid input
+  /esq-path:
+    get:
+      tags:
+        - esquire
+      summary: Retrieve a path of a node
+      description: Retrieve a path of a node (a location where a node located in the tree)
+      operationId: esquirePath
+      parameters:
+        - name: id
+          in: query
+          description: a node id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '405':
+          description: Invalid input
+  /esq-cmd:
+    get:
+      tags:
+        - esquire
+      summary: Generic esquire command
+      description: Open interface to call a specific command, default cmd is 'details'
+                   to obtain properties on an entity by its id
+      operationId: esquireCmd
+      parameters:
+        - name: id
+          in: query
+          description: An id of node or entity, depends on command context
+          required: true
+          schema:
+            type: string
+        - name: cmd
+          in: query
+          description: a command to process , default 'details'
+          required: false
+          schema:
+            type: string
+            default: details
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        '405':
+          description: Invalid input
+  /esq-enode:
+    get:
+      tags:
+        - esquire
+      summary: Find an entity node
+      description: Find a node corresponding to the entity's id or name + kind
+      operationId: esquireEntityNode
+      parameters:
+        - name: id
+          in: query
+          description: an entity id
+          required: false
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: an entity name
+          required: false
+          schema:
+            type: string
+        - name: kind
+          in: query
+          description: an entity type
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/EsqTreeNode'
+        '405':
+          description: Invalid input
+  /esq-dict:
+    get:
+      tags:
+        - esquire
+      summary: Obtain a dictionary of an entity
+      description: Obtain a dictionary of an entity by its kind
+      operationId: esquireDictionary
+      parameters:
+        - name: kind
+          in: query
+          description: an entity kind
+          required: required
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EsqEntityLayer'
+        '405':
+          description: Invalid input
+
+components:
+  schemas:
+    EsqTreeNode:
+      title: Tree Node
+      description: A node with all information for tree navigation
+      type: object
+      properties:
+        id:
+          type: string
+          description: node id
+          example: Pikachu
+        parentId:
+          type: string
+          description: Parent node id
+          example: Pokemons
+        linkId:
+          type: string
+          description: For shortcut nodes, reference to the origin node
+          example: Pikachu
+        name:
+          type: string
+          description: Node name
+          example: Pikachu
+        kind:
+          type: number
+          format: int32
+          description: Node type, odd types are 'short cuts' a link node referencing to origin one
+          example: 13
+        entityId:
+          type: string
+          description: Entity id (it can be different from node id)
+          example: Pikachu
+        treeFlags:
+          type: string
+          description: Flags defining tree/view list node behavior, BTb flags
+          example: b
+        statusCode:
+          type: integer
+          format: int32
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+          description: Node Status Code, (0)ok (1)deleted (2)locked, (3)checked (4)question
+          example: 0
+        moreRemaining:
+          type: boolean
+          description: Indicates when more nodes left to retrieve
+          example: false
+        level:
+          type: integer
+          format: int32
+          description: Tree level of node
+          example: 2
+        path:
+          type: array
+          items:
+            type: string
+          description: Node path on the tree
+          example: [root,Pokemons]
+        desc:
+          type: string
+          description: Node description
+          example: Yellow Electric Mouse Pokémon
+      xml:
+        name: EsqTreeNode
+    EsqEntityLayer:
+      title: Tree entity details layer
+      description: An UI layer (or tab) aggregating a set of entity fields
+      type: object
+      properties:
+        title:
+          type: string
+          description: a layer heading
+          example: Generic
+        fields:
+          type: array
+          description: set of entity field definitions
+          items:
+            $ref: '#/components/schemas/EsqEntityField'
+    EsqEntityField:
+      title: Tree entity field definition
+      description: Tree entity field metadata
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of the field
+          example: hight
+        sort:
+          type: number
+          format: int32
+          description: position in the sorting order
+          example: 3
+        label:
+          type: string
+          description: GUI field label
+          example: Hight
+        type:
+          type: string
+          description: Type of field data
+          enum:
+            - string
+            - double
+            - flag
+            - listvalues
+            - href
+            - tablist
+            - image
+          example: string
+        tooltip:
+          type: string
+          description: GUI tooltip over the field
+          example: Pokemon height in meters
+        listvalues:
+          type: array
+          items:
+            type: string
+          description: possible values in dropdown list UI element
+        nullable:
+          type: boolean
+          description: Determines whether the field value can be null
+          example: false
+        nullmeaning:
+          type: string
+          description: a meaning of null value for UI representation
+        validation:
+          type: string
+          description: a validation regex for UI input
+          example:  '^[Z0-9]+$'
+        layer:
+          type: number
+          format: int32
+          description: an UI layer of the filed
+          example: 1
+        readwrite:
+          type: number
+          format: int32
+          enum:
+            - 0
+            - 1
+            - 3
+          description: A bitmap (0)hidden (1)view (3)full
+          example: 1
+        listvalues_kind:
+          type: number
+          format: int32;
+          description: For listvalues field type only - a kind of entities represented in the list

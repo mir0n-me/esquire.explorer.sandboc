@@ -1,0 +1,4 @@
+Esquire Explorer Sandbox release notes
+
+v1.0.0-2512.1716  initial version 
+

@@ -1,0 +1,70 @@
+{
+  "scripts": {
+    "server": "nodemon --quiet backend",
+    "client": "npm start --prefix \"frontend\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "prestart": "npm install"
+  },
+  "name": "esquire.exporer.sandbox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "mir0n",
+  "license": "ISC",
+  "type": "commonjs",
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^20.3.0",
+    "@angular/common": "^20.3.0",
+    "@angular/compiler": "^20.3.0",
+    "@angular/core": "^20.3.0",
+    "@angular/forms": "^20.3.0",
+    "@angular/material": "^20.2.0",
+    "@angular/platform-browser": "^20.3.0",
+    "@angular/platform-browser-dynamic": "^20.3.0",
+    "@angular/router": "^20.3.0",
+    "rxjs": "^6.5.3 || ^7.4.0",
+    "body-parser": "^1.19.0",
+    "camelcase": "^5.3.1",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-openapi-validator": "^4.13.8",
+    "js-yaml": "^3.3.0",
+    "ono": "^5.0.1",
+    "openapi-sampler": "^1.0.0-beta.15",
+    "swagger-ui-express": "^4.0.2",
+    "tslib": "^2.3.0",
+    "winston": "^3.19.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.17.2",
+    "mocha": "^11.7.5",
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.11",
+    "@angular/build": "^20.3.9",
+    "@angular/cli": "^20.3.9",
+    "@angular/compiler-cli": "^20.3.0",
+    "@openapitools/openapi-generator-cli": "^2.13.4",
+    "@types/jasmine": "~5.1.0",
+    "jasmine-core": "~5.1.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.0.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-packagr": "^20.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": ">=5.9.2 <6.0.0"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true
+    }
+  }
+}

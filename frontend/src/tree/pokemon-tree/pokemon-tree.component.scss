@@ -1,0 +1,40 @@
+/*
+*  Esquire frameworks (tm)
+*  Esquire Explorer sandbox
+*  Copyright(c) 2001, 2025 mir0n&co www.mir0n.me
+*  mailto:mir0n.the.programmer@gmail.com
+*
+*  History:
+*/
+.example-app {
+  display: grid;
+  grid-template-rows: fit-content(64px) auto fit-content(64px);
+  
+  .mat-toolbar {
+    position: relative;
+    top:0px;
+    height: 10hv;
+    border : 1px;
+    background: rgba(235, 235, 235, 0.5);
+
+    display: grid;
+    grid-template-columns: fit-content(48px) auto;
+    gap: 16px;
+  }
+
+  .esq-explorer {
+    padding: 3px 3px 3px 3px;
+
+  }
+  
+  .mat-toolbar {
+    bottom: 0;
+    height: 10hv;
+    border : 1px;
+    background: rgba(235, 235, 235, 0.5);
+    vertical-align: middle;
+    font-size: 9pt;
+    text-align: left;
+    font-weight: normal;  
+  }
+}
