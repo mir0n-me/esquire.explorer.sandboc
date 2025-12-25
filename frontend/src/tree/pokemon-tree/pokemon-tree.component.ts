@@ -5,6 +5,7 @@
 *  mailto:mir0n.the.programmer@gmail.com
 *
 *  History:
+* 12/24/2025 mir0n kind parameter is requried for esq-cmd, esq-enode
 */
 import {Component,
   OnInit,
@@ -13,7 +14,6 @@ import {Component,
 } from '@angular/core';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatDialog} from '@angular/material/dialog';
-import { Observable, of } from 'rxjs';
 
 import {EsqNodeType, EsqNodeTypeFactory}     from '../../../esquire/src/types/EsqNodeTypeFactory';
 import {EsqNodeStatus, EsqNodeStatusFactory} from '../../../esquire/src/types/EsqNodeStatusFactory';
@@ -59,13 +59,12 @@ export class PokemonTreeComponent implements OnInit, AfterViewInit {
       esquirePath: (id: string, options?:any) => {
         return this.dataService.esquirePath(encodeURIComponent(id), options) ;
       },
-      esquireCmd: (id: string, cmd?: string, options?:any) => {
-        return this.dataService.esquireCmd(encodeURIComponent(id), cmd, options) ;
+      esquireCmd: ( kind: number, id: string, cmd?: string, options?:any) => {
+        return this.dataService.esquireCmd( kind, encodeURIComponent(id), cmd, options) ;
       },
-     esquireEntityNode: (id?: string, name?: string, kind?: number, options?:any) => {
-        return this.dataService.esquireEntityNode( (id && id.length >0)? encodeURIComponent(id) : undefined,
+     esquireEntityNode: (kind: number, id?: string, name?: string, options?:any) => {
+        return this.dataService.esquireEntityNode( kind, (id && id.length >0)? encodeURIComponent(id) : undefined,
           name?encodeURIComponent(name):undefined, 
-          kind , 
           options
         );
       },

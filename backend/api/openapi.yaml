@@ -93,6 +93,15 @@ paths:
         \ to obtain properties on an entity by its id"
       operationId: esquireCmd
       parameters:
+      - description: an entity type
+        explode: true
+        in: query
+        name: kind
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: form
       - description: "An id of node or entity, depends on command context"
         explode: true
         in: query
@@ -128,6 +137,15 @@ paths:
       description: Find a node corresponding to the entity's id or name + kind
       operationId: esquireEntityNode
       parameters:
+      - description: an entity type
+        explode: true
+        in: query
+        name: kind
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: form
       - description: an entity id
         explode: true
         in: query
@@ -143,15 +161,6 @@ paths:
         required: false
         schema:
           type: string
-        style: form
-      - description: an entity type
-        explode: true
-        in: query
-        name: kind
-        required: false
-        schema:
-          format: int32
-          type: integer
         style: form
       responses:
         "200":
@@ -292,8 +301,8 @@ components:
           name: hight
           tooltip: Pokemon height in meters
           nullmeaning: nullmeaning
+          format: format
           readwrite: 1
-          listvalues_kind: 0.8008281904610115
           sort: 3
           label: Hight
           type: string
@@ -306,8 +315,8 @@ components:
           name: hight
           tooltip: Pokemon height in meters
           nullmeaning: nullmeaning
+          format: format
           readwrite: 1
-          listvalues_kind: 0.8008281904610115
           sort: 3
           label: Hight
           type: string
@@ -335,8 +344,8 @@ components:
         name: hight
         tooltip: Pokemon height in meters
         nullmeaning: nullmeaning
+        format: format
         readwrite: 1
-        listvalues_kind: 0.8008281904610115
         sort: 3
         label: Hight
         type: string
@@ -363,11 +372,13 @@ components:
           description: Type of field data
           enum:
           - string
-          - double
           - flag
-          - listvalues
-          - href
+          - integer
+          - number
+          - datetime
           - tablist
+          - tabstring
+          - href
           - image
           example: string
           type: string
@@ -405,10 +416,9 @@ components:
           example: 1
           format: int32
           type: number
-        listvalues_kind:
-          description: For listvalues field type only - a kind of entities represented
-            in the list
-          format: int32;
-          type: number
+        format:
+          description: "For tablist field - a kind of entities represented in the\
+            \ list; for string - max length; for integer, number, datetime- format"
+          type: string
       title: Tree entity field definition
       type: object

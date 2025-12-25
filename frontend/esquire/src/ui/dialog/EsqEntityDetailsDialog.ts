@@ -5,6 +5,10 @@
 *  mailto:mir0n.the.programmer@gmail.com
 *
 *  History:
+* 12/24/2025 mir0n added processing of tabstring field value type
+*                  readOnly made public
+*                  kind parameter is requried for esq-cmd, esq-enode
+*                  listvalues_kind moved inside of generic format 
 */
 import {AfterViewInit, 
    Component, 
@@ -32,6 +36,7 @@ import { CommonModule } from '@angular/common'
 import {MatTableModule } from '@angular/material/table';
 import { EsqNodeType, EsqNodeTypeFactory } from '../../types/EsqNodeTypeFactory';
 import { EsqTabListComponent } from "./EsqTabListComponent";
+import { EsqTabLStringComponent } from "./EsqTabStringComponent";
 import { EsqExplorerCallApi } from '../../api/EsqExplorerCallApi';
 import { EsqDictionaryApi } from '../../api/EsqDictionaryApi';
 import { EsqEntityLayer } from '../../types/EsqEntityDictionary';
@@ -51,7 +56,8 @@ import { EsqEntityLayer } from '../../types/EsqEntityDictionary';
     MatDividerModule,
     CommonModule,
     MatTableModule,
-    EsqTabListComponent
+    EsqTabListComponent,
+    EsqTabLStringComponent
 ],
   encapsulation: ViewEncapsulation.None,
 })
@@ -64,7 +70,7 @@ export class EsqEntityDetailsDialog implements OnInit,  AfterViewInit, OnDestroy
    private dictionaryApi: EsqDictionaryApi;
    public callApi: EsqExplorerCallApi;
 
-   private readOnly: boolean = false;
+   public readOnly: boolean = false;
    public details$: Observable<any> | undefined;
    public dictionary$: Observable<EsqEntityLayer[]> | undefined;
    readonly detailsDialog:MatDialog = inject(MatDialog);   
@@ -92,11 +98,8 @@ export class EsqEntityDetailsDialog implements OnInit,  AfterViewInit, OnDestroy
 
   ngOnInit() {
     if (this.node.type.detailed) {
-      var ekind:number =  Number(this.node.type.id);
-      ekind = Math.floor(ekind / 2);
-      ekind = ekind * 2;
-      this.dictionary$ = this.dictionaryApi.dictionary(ekind);
-      this.details$ = from (this.loadDetails());
+      this.dictionary$ = this.dictionaryApi.dictionary(this.node.type.id);
+      this.details$ = this.restApi.esquireCmd(this.node.type.id, this.node.entityId); //from (this.loadDetails());
     }
   }
 
@@ -114,13 +117,21 @@ export class EsqEntityDetailsDialog implements OnInit,  AfterViewInit, OnDestroy
   nodeStatusIcon() {
     return EsqNodeStatusFactory.instanceOf(this.node.statusCode).icon;
   }
+  
   nodeTypeName():string {
     return this.node.type.name + (this.node.linkId?" (shortcut)" : "");
   }
   private async loadDetails(): Promise<any> {
-    return await firstValueFrom(this.restApi.esquireCmd(this.node.entityId));
+    return await firstValueFrom(this.restApi.esquireCmd(this.node.kind, this.node.entityId));
   }
-  nodeType(id:number) : EsqNodeType {
+  nodeTypeFromFormat(format:string) : EsqNodeType {
+    var id:number = -1; //unknown
+    if (format) {
+      var ftype:string[] = format.split('=');
+      if (ftype.length > 1 && ftype[0] == 'kind') {
+        id = Number(ftype[1]);
+      }
+    }
     return EsqNodeTypeFactory.instanceOf(id);
   }
 

@@ -106,20 +106,26 @@ export class EsquireService extends BaseService {
      * Generic esquire command
      * Open interface to call a specific command, default cmd is \&#39;details\&#39; to obtain properties on an entity by its id
      * @endpoint get /esq-cmd
+     * @param kind an entity type
      * @param id An id of node or entity, depends on command context
      * @param cmd a command to process , default \&#39;details\&#39;
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public esquireCmd(id: string, cmd?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<object>;
-    public esquireCmd(id: string, cmd?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<object>>;
-    public esquireCmd(id: string, cmd?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<object>>;
-    public esquireCmd(id: string, cmd?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public esquireCmd(kind: number, id: string, cmd?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<object>;
+    public esquireCmd(kind: number, id: string, cmd?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<object>>;
+    public esquireCmd(kind: number, id: string, cmd?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<object>>;
+    public esquireCmd(kind: number, id: string, cmd?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (kind === null || kind === undefined) {
+            throw new Error('Required parameter kind was null or undefined when calling esquireCmd.');
+        }
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling esquireCmd.');
         }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>kind, 'kind');
         localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
           <any>id, 'id');
         localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
@@ -228,24 +234,27 @@ export class EsquireService extends BaseService {
      * Find an entity node
      * Find a node corresponding to the entity\&#39;s id or name + kind
      * @endpoint get /esq-enode
+     * @param kind an entity type
      * @param id an entity id
      * @param name an entity name
-     * @param kind an entity type
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public esquireEntityNode(id?: string, name?: string, kind?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<EsqTreeNode>>;
-    public esquireEntityNode(id?: string, name?: string, kind?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<EsqTreeNode>>>;
-    public esquireEntityNode(id?: string, name?: string, kind?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<EsqTreeNode>>>;
-    public esquireEntityNode(id?: string, name?: string, kind?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public esquireEntityNode(kind: number, id?: string, name?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<EsqTreeNode>>;
+    public esquireEntityNode(kind: number, id?: string, name?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<EsqTreeNode>>>;
+    public esquireEntityNode(kind: number, id?: string, name?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<EsqTreeNode>>>;
+    public esquireEntityNode(kind: number, id?: string, name?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (kind === null || kind === undefined) {
+            throw new Error('Required parameter kind was null or undefined when calling esquireEntityNode.');
+        }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>kind, 'kind');
         localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
           <any>id, 'id');
         localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
           <any>name, 'name');
-        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-          <any>kind, 'kind');
 
         let localVarHeaders = this.defaultHeaders;
 

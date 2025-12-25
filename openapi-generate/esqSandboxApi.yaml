@@ -86,6 +86,13 @@ paths:
                    to obtain properties on an entity by its id
       operationId: esquireCmd
       parameters:
+        - name: kind
+          in: query
+          description: an entity type
+          required: true
+          schema:
+            type: integer
+            format: int32
         - name: id
           in: query
           description: An id of node or entity, depends on command context
@@ -116,6 +123,13 @@ paths:
       description: Find a node corresponding to the entity's id or name + kind
       operationId: esquireEntityNode
       parameters:
+        - name: kind
+          in: query
+          description: an entity type
+          required: true
+          schema:
+            type: integer
+            format: int32
         - name: id
           in: query
           description: an entity id
@@ -128,13 +142,6 @@ paths:
           required: false
           schema:
             type: string
-        - name: kind
-          in: query
-          description: an entity type
-          required: false
-          schema:
-            type: integer
-            format: int32
       responses:
         '200':
           description: successful operation
@@ -238,7 +245,7 @@ components:
         desc:
           type: string
           description: Node description
-          example: Yellow Electric Mouse Pokémon
+          example: Yellow Electric Mouse Pokemon
       xml:
         name: EsqTreeNode
     EsqEntityLayer:
@@ -278,11 +285,13 @@ components:
           description: Type of field data
           enum:
             - string
-            - double
             - flag
-            - listvalues
-            - href
+            - integer
+            - number
+            - datetime
             - tablist
+            - tabstring
+            - href
             - image
           example: string
         tooltip:
@@ -319,7 +328,6 @@ components:
             - 3
           description: A bitmap (0)hidden (1)view (3)full
           example: 1
-        listvalues_kind:
-          type: number
-          format: int32;
-          description: For listvalues field type only - a kind of entities represented in the list
+        format:
+          type: string
+          description: For tablist field - a kind of entities represented in the list; for string - max length; for integer, number, datetime- format

@@ -59,18 +59,20 @@ export interface EsqEntityField {
      */
     readwrite?: EsqEntityField.ReadwriteEnum;
     /**
-     * For listvalues field type only - a kind of entities represented in the list
+     * For tablist field - a kind of entities represented in the list; for string - max length; for integer, number, datetime- format
      */
-    listvalues_kind?: number;
+    format?: string;
 }
 export namespace EsqEntityField {
     export const TypeEnum = {
         String: 'string',
-        Double: 'double',
         Flag: 'flag',
-        Listvalues: 'listvalues',
-        Href: 'href',
+        Integer: 'integer',
+        Number: 'number',
+        Datetime: 'datetime',
         Tablist: 'tablist',
+        Tabstring: 'tabstring',
+        Href: 'href',
         Image: 'image'
     } as const;
     export type TypeEnum = typeof TypeEnum[keyof typeof TypeEnum];

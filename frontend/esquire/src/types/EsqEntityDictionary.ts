@@ -5,12 +5,13 @@
 *  mailto:mir0n.the.programmer@gmail.com
 *
 * History :
+* 12/24/2025 mir0n listvalues_kind moved inside of generic format 
 */
 export class EsqEntityField {
   name:string;              // +
   sort:number;              // x
   label:string;             // +
-  type: string;             // +/- (+string, xinteger, xdouble, xflag, xlistvalues, +href, +tablist, +image)
+  type: string;             // +/- (string, integer, number, flag, listvalues, datetime, href, tablist, tabstring, image)
   tooltip:string;           // x
   listvalues:string[];      // x in concrete order
   nullable:boolean;         // x    
@@ -18,7 +19,7 @@ export class EsqEntityField {
   validation:string;        // x 
   layer:number;             // +
   readwrite:number;         //(bitmap: 0:hidden,1:view, 3:full)
-  listvalues_kind:number;   // +
+  format:string;   // +
   constructor(jsn : any) {
       this.name = jsn.name;
       this.sort = jsn.sort;
@@ -31,7 +32,7 @@ export class EsqEntityField {
       this.validation = jsn.validation;
       this.layer = jsn.layer;
       this.readwrite = jsn.readwrite;
-      this.listvalues_kind = jsn.listvalues_kind;
+      this.format = jsn.format;
   }
 };
 

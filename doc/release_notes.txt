@@ -2,3 +2,12 @@ Esquire Explorer Sandbox release notes
 
 v1.0.0-2512.1716  initial version 
 
+v1.0.1-2512.2420 Esquire API and types generalization
+   - frontend and backend 
+   - Esquire API and types generalization
+     : kind parameter is requried for esq-cmd, esq-enode
+     : value types: number instead of double, added integer, datetime, tabstring
+     : listvalues_kind moved inside of generic format
+     : added processing of 'tabstring' field type
+     
+

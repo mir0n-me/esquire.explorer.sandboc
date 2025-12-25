@@ -39,15 +39,16 @@ const esquire = ({ id, skip, take }) => new Promise(
 /**
 * Open interface to call a specific command, default cmd is 'details' to obtain properties on an entity by its id
 *
+* kind Integer an entity type
 * id String An id of node or entity, depends on command context
 * cmd String a command to process , default 'details' (optional)
 * returns Object
 * */
-const esquireCmd = ({ id, cmd }) => new Promise(
+const esquireCmd = ({ kind, id, cmd }) => new Promise(
   async (resolve, reject) => {
     try {
       resolve(Service.successResponse(
-        esq.esquireCmd( id, cmd,)
+        esq.esquireCmd( kind, id, cmd,)
       ))
     } catch (e) {
       reject(Service.rejectResponse(
@@ -80,16 +81,16 @@ const esquireDictionary = ({ kind }) => new Promise(
 /**
 * Find a node corresponding to the entity's id or name + kind
 *
+* kind Integer an entity type
 * id String an entity id (optional)
 * name String an entity name (optional)
-* kind Integer an entity type (optional)
 * returns List
 * */
-const esquireEntityNode = ({ id, name, kind }) => new Promise(
+const esquireEntityNode = ({ kind, id, name }) => new Promise(
   async (resolve, reject) => {
     try {
       resolve(Service.successResponse(
-        esq.esquireEntityNode( id, name, kind,)
+        esq.esquireEntityNode( kind, id, name,)
       ))
     } catch (e) {
       reject(Service.rejectResponse(

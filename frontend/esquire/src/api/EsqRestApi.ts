@@ -5,14 +5,15 @@
 *  mailto:mir0n.the.programmer@gmail.com
 *
 * History :
+* 12/24/2025 mir0n kind parameter is requried for esq-cmd, esq-enode
 */
 import { Observable } from 'rxjs';
 
 export interface EsqRestApi {
  esquire: (id?: string, skip?: number, take?: number, options?:any) => Observable<any>;
  esquirePath: (id: string, options?:any) => Observable<any>;
- esquireCmd: (id: string, cmd?: string, options?:any) => Observable<any>;
- esquireEntityNode: (id?: string, name?: string, kind?: number, options?:any) => Observable<any>;
+ esquireCmd: (kind: number, id: string, cmd?: string, options?:any) => Observable<any>;
+ esquireEntityNode: (kind: number, id?: string, name?: string, options?:any) => Observable<any>;
  esquireDictionary: (kind: number, options?:any) => Observable<any>;
 
 }

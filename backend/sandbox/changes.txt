@@ -2,3 +2,8 @@ Esquire Frameworks(tm) 2.0
 Esquire Exporer sandbox (backend) 
 
 12/17/2025 initial  
+
+12/24/2025 Esquire API and types generalization
+ datastore.js
+  - listvalues_kind moved inside of generic format
+  - kind parameter is requried for esq-cmd, esq-enode

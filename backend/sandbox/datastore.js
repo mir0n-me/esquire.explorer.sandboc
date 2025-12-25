@@ -7,6 +7,8 @@
 *  email: mir0n.the.programmer@gmail.com
 *
 * History:
+* 12/24/2025 mir0n listvalues_kind moved inside of generic format
+*                  kind parameter is requried for esq-cmd, esq-enode
 */
 
 const DEBUG = false;
@@ -19,7 +21,7 @@ const dictionaries = [
         fields: [
           { name: 'image', sort:1, label:'',    type:'image', layer:1, readwrite:1} ,
           { name: 'link',  sort:2, label:'Link', type:'href', layer:1, readwrite:1},
-          { name: 'desc',  sort:2, label:'Description', type:'string', layer:1, readwrite:1},
+          { name: 'desc',  sort:3, label:'Description', type:'string', layer:1, readwrite:1},
         ]
       }
     ]
@@ -37,23 +39,23 @@ const dictionaries = [
       ]},
       { title:'Games',
         fields: [
-          { name: 'games',   sort:1, label:'',     type:'tablist', layer:2, readwrite:1, listvalues_kind:14} ,
+          { name: 'games',   sort:1, label:'',     type:'tablist', layer:2, readwrite:1, format:'kind=14'} ,
       ]},
       { title:'TV Shows',
         fields: [
-          { name: 'tvShows',  sort:1, label:'', type:'tablist', layer:3, readwrite:1, listvalues_kind:16} ,
+          { name: 'tvShows',  sort:1, label:'', type:'tablist', layer:3, readwrite:1, format:'kind=16'} ,
       ]},
       { title:'Books',
         fields: [
-          { name: 'books',    sort:1, label:'',    type:'tablist', layer:4, readwrite:1, listvalues_kind:18} ,
+          { name: 'books',    sort:1, label:'',    type:'tablist', layer:4, readwrite:1, format:'kind=18'} ,
       ]},
       { title:'Posters',
         fields: [
-          { name: 'posters',   sort:1, label:'Posters were shown', type:'tablist', layer:5, readwrite:1, listvalues_kind:20} ,
+          { name: 'posters',   sort:1, label:'Posters were shown', type:'tablist', layer:5, readwrite:1, format:'kind=20'} ,
       ]},
       { title:'Powers',
         fields: [
-          { name: 'powers',    sort:1, label:'Pokemon Powers',  type:'tablist', layer:6, readwrite:1, listvalues_kind:22} ,
+          { name: 'powers',    sort:1, label:'Pokemon Powers',  type:'tablist', layer:6, readwrite:1, format:'kind=22'} ,
       ]},
     ]
    },
@@ -1113,64 +1115,60 @@ class Datastore {
   }
 
 
-  googleIt(node) {
+  googleIt(kind, id) {
     var ret = ('https://www.google.com/search?q='
-       + "+" + PokemonNodeType.instanceOf (node.kind).name
-       + "+" + node.name);
+       + "+" + PokemonNodeType.instanceOf (kind).name
+       + "+" + id);
     return  ret.replace("'","%27").replace(" ","+");
   }
 
-  getNodeDetails (id) {
-    var ret;
-//this.log("looking:", id);
-    const selected = this.pkmns.filter((x) => x.id == id);
-//this.log("looking:", id,' found:', selected);
-    if (selected && selected.length > 0) {
-      let node = selected[0];
-      switch (node.kind) {
-        case PokemonNodeType.Pokemon.id:
-        case PokemonNodeType.Pokemon.id + 1:
-          ret = pokemonDetails[node.entityId];
-          break;
-        case PokemonNodeType.Game.id:
-        case PokemonNodeType.Game.id + 1:
-          ret = this.findGameById(node.entityId);
-          break;
-        case PokemonNodeType.TvShow.id:
-        case PokemonNodeType.TvShow.id + 1:
-          ret = this.findShowById(node.entityId);
-          break;
-        case PokemonNodeType.Book.id:
-        case PokemonNodeType.Book.id + 1:
-          ret = this.findBookById(node.entityId);
-          break;
-        case PokemonNodeType.Poster.id:
-        case PokemonNodeType.Poster.id + 1:
-          ret = this.findPosterById(node.entityId);
-          break;
-        default:
-          break;
-      }
-      if (!ret) {
-        ret = 	{
-          id: id,
-          name: id, 
-          desc: 'No details were found',
-          link: [this.googleIt(node), 'Google it...'],
-          image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS56r0NfYX5KeWeBOFqDxS0-h_p5efe-aXSRQ&s',
-        };
-      }
+  getEntityDetails (kind, id) {
+    var ret = null;
+    var k = Math.floor(kind / 2);
+    k = k * 2;
+
+    this.log("getEntityDetails:", k, "/", id , );
+
+    switch (k) {
+      case PokemonNodeType.Pokemon.id:
+        ret = pokemonDetails[id];
+        break;
+      case PokemonNodeType.Game.id:
+        ret = this.findGameById(id);
+        break;
+      case PokemonNodeType.TvShow.id:
+        ret = this.findShowById(id);
+        break;
+      case PokemonNodeType.Book.id:
+        ret = this.findBookById(id);
+        break;
+      case PokemonNodeType.Poster.id:
+        ret = this.findPosterById(id);
+        break;
+      default:
+        break;
+    }
+    if (!ret) {
+      ret = 	{
+        id: id,
+        name: id, 
+        desc: 'No details were found',
+        link: [this.googleIt(kind, id), 'Google it...'],
+        image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS56r0NfYX5KeWeBOFqDxS0-h_p5efe-aXSRQ&s',
+      };
     }
     return ret;
   }
 
- findEntityNode (entity_id, entity_name, entity_kind) {
+ findEntityNode (entity_kind, entity_id, entity_name) {
     var ret;
     var selected;
-    if (entity_id) {
-        selected = this.pkmns.filter((x) => (x.linkId) && (x.entityId == entity_id));
+    var k = Math.floor(entity_kind / 2);
+    k = k * 2;
+    if (entity_id && entity_kind) {
+        selected = this.pkmns.filter((x) => (x.kind == k) && (x.entityId == entity_id));
     } else if (entity_name && entity_kind) {
-        selected = this.pkmns.filter((x) => (x.kind == entity_kind) && (x.name == entity_name));
+        selected = this.pkmns.filter((x) => (x.kind == k) && (x.name == entity_name));
     }
     if (selected && selected.length > 0) {
       ret = selected[0];
@@ -1183,7 +1181,9 @@ class Datastore {
     if (!entity_kind || entity_kind < 12 || entity_kind > 22) {
       return ret;
     }
-    var selected = dictionaries.filter((x) => (x.kind == entity_kind));
+    var k = Math.floor(entity_kind / 2);
+    k = k * 2;
+    var selected = dictionaries.filter((x) => (x.kind == k));
     if (selected && selected.length > 0) {
       ret = selected[0].layers;
     } else {
@@ -1212,13 +1212,13 @@ class Datastore {
     return data;
   }
 
-  esquireCmd (id, cmd) {
+  esquireCmd (kind, id, cmd) {
     var data = undefined;
-    if (id) {
-//this.log("pass to looking:", id);
-      data = this.getNodeDetails((id && id.length>0)?decodeURIComponent(id):undefined);
+    if (id && kind) {
+//this.log("esquireCmd to looking:", kind, "/", id) ;
+      data = this.getEntityDetails(kind, decodeURIComponent(id));
       if (data) {
-        this.log('esq-cmd ~ id:',id, 
+        this.log('esq-cmd ~ id:',id, ' kind:',kind,
           'length:',data.length, 'data:',data);
       } else {  
         this.log('esq-cmd ~ id:',id, 'no data');
@@ -1234,11 +1234,11 @@ class Datastore {
     return data;
   }
 
-  esquireEntityNode (id, name, kind) {
+  esquireEntityNode (kind, id, name) {
     var data = this.findEntityNode(
+      kind,
       (id && id.length>0)?decodeURIComponent(id):undefined,
       name ? decodeURIComponent(name):undefined,
-      kind
     );
     this.log('esq-enode ~ id:',id,' name:', name, ' kind:', kind, data);    
     return data;
