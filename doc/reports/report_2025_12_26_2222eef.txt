@@ -1,0 +1,66 @@
+--------------------------------------------------------------------------
+Release notes: from v1.0.1 till HEAD
+--------------------------------------------------------------------------
+Top Commit: 2222eef
+Notes from: doc/release_notes.txt
+
+v1.0.2-2512.1612 remove esquire source code
+    - use esquire.ui library
+
+--------------------------------------------------------------------------
+Branch : esquire.explorer.sandbox/develop
+--------------------------------------------------------------------------
+Code changes:
+--------------------------------------------------------------------------
+Changes from: frontend/esquire/src/changes.txt
+--------------------------------------------------------------------------
+Changes from: frontend/src/changes.txt
+12/26/2025 esquire.ui library
+ pokemon-tree\pokemon-tree.component.ts
+    - use esquire.ui library
+
+--------------------------------------------------------------------------
+
+-- 2025-12-26 | commit: 2222eef | mir0n.the.programmer | remove esquire source code --
+A	.npmrc
+M	backend/package.json
+M	doc/release_notes.txt
+D	frontend/esquire/src/api/EsqDictionaryApi.ts
+D	frontend/esquire/src/api/EsqExplorerCallApi.ts
+D	frontend/esquire/src/api/EsqRestApi.ts
+D	frontend/esquire/src/changes.txt
+D	frontend/esquire/src/types/AsEsqTreeNodePipe.spec.ts
+D	frontend/esquire/src/types/AsEsqTreeNodePipe.ts
+D	frontend/esquire/src/types/EsqEntityDictionary.ts
+D	frontend/esquire/src/types/EsqNodeStatusFactory.ts
+D	frontend/esquire/src/types/EsqNodeTypeFactory.ts
+D	frontend/esquire/src/types/EsqTreeNode.ts
+D	frontend/esquire/src/types/EsqTreeNodeDto.ts
+D	frontend/esquire/src/ui/EsqDictionary.ts
+D	frontend/esquire/src/ui/EsqExplorerCallApiMill.ts
+D	frontend/esquire/src/ui/EsqResizeDirective.ts
+D	frontend/esquire/src/ui/dialog/EsqDetailsDialog.scss
+D	frontend/esquire/src/ui/dialog/EsqEntityDetailsDialog.html
+D	frontend/esquire/src/ui/dialog/EsqEntityDetailsDialog.ts
+D	frontend/esquire/src/ui/dialog/EsqNodeDetailsDialog.html
+D	frontend/esquire/src/ui/dialog/EsqNodeDetailsDialog.ts
+D	frontend/esquire/src/ui/dialog/EsqTabListComponent.html
+D	frontend/esquire/src/ui/dialog/EsqTabListComponent.scss
+D	frontend/esquire/src/ui/dialog/EsqTabListComponent.ts
+D	frontend/esquire/src/ui/dialog/EsqTabStringComponent.html
+D	frontend/esquire/src/ui/dialog/EsqTabStringComponent.scss
+D	frontend/esquire/src/ui/dialog/EsqTabStringComponent.ts
+D	frontend/esquire/src/ui/flatTree/EsqExplorerComponent.html
+D	frontend/esquire/src/ui/flatTree/EsqExplorerComponent.scss
+D	frontend/esquire/src/ui/flatTree/EsqExplorerComponent.ts
+D	frontend/esquire/src/ui/flatTree/EsqFlatTreeDatasource.ts
+D	frontend/esquire/src/ui/flatTree/EsqListViewDatasource.ts
+D	frontend/esquire/src/ui/flatTree/EsqTreeViewDatasource.ts
+D	frontend/esquire/src/ui/flatTree/loading.16.gif
+D	frontend/esquire/src/utils/EsqUtils.ts
+D	frontend/package-lock.json
+M	frontend/package.json
+M	frontend/src/changes.txt
+M	frontend/src/tree/pokemon-tree/pokemon-tree.component.ts
+M	package.json
+ 41 files changed, 36 insertions(+), 15604 deletions(-)
