@@ -1,7 +1,15 @@
 Esquire Frameworks(tm) 2.0
-Esquire Exporer sandbox (backend) 
+Esquire Exporer sandbox (backend)
 
-12/17/2025 initial  
+04/18/2026 mir0n  PokemonKinds array; esquireKinds endpoint
+sandbox\datastore.js
+  - PokemonKinds array; esquireKinds endpoint
+services\EsquireService.js
+  - esquireKinds service method
+controllers\EsquireController.js
+  - esquireKinds controller handler
+
+12/17/2025 initial
 
 12/24/2025 Esquire API and types generalization
  datastore.js

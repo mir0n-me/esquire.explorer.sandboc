@@ -4,6 +4,9 @@
  * the service.
  * The heavy lifting of the Controller item is done in Request.js - that is where request
  * parameters are extracted and sent to the service, and where response is handled.
+ *
+ * History:
+ * 04/18/2026 mir0n  esquireKinds controller handler
  */
 
 const Controller = require('./Controller');
@@ -29,10 +32,15 @@ const esquirePath = async (request, response) => {
 };
 
 
+const esquireKinds = async (request, response) => {
+  await Controller.handleRequest(request, response, service.esquireKinds);
+};
+
 module.exports = {
   esquire,
   esquireCmd,
   esquireDictionary,
   esquireEntityNode,
   esquirePath,
+  esquireKinds,
 };

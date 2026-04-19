@@ -206,6 +206,25 @@ paths:
       tags:
       - esquire
       x-eov-operation-handler: controllers/EsquireController
+  /esq-kinds:
+    get:
+      description: Retrieve a list of entity kind definitions
+      operationId: esquireKinds
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: object
+                type: array
+          description: successful operation
+        "405":
+          description: Invalid input
+      summary: Retrieve entity kind definitions
+      tags:
+      - esquire
+      x-eov-operation-handler: controllers/EsquireController
 components:
   schemas:
     EsqTreeNode:

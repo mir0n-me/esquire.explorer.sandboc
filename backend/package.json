@@ -1,6 +1,6 @@
 {
-  "name":  "esquire.exporer.sandbox.backend",
-  "version": "1.0.2",
+  "name":  "esquire-frameworks-sandbox-api",
+  "version": "1.2.2",
   "description": "This is a simplified Esquire Rest API for an inital sandbox environment.",
   "main": "index.js",
   "scripts": {

@@ -6,17 +6,28 @@
   mailto:mir0n.the.programmer@gmail.com
 
   History:
+  * 04/18/2026 mir0n  ready guard; error/status footer
 -->
   <div class="example-app">
   <mat-toolbar> 
     <img style="width:48px; height:48px;" src="pokemon.ico"/>
     <h1> Esquire Tree Explorer Sand Box !!! </h1>
   </mat-toolbar>
-  <esqExplorer #explorer 
-    [esqRestApi]="esqRestApiWrapper()"
-    [esqExplorerCallApi]="esqExplorerCallApiWrapper()">
-  </esqExplorer>
-  <mat-toolbar>Footer</mat-toolbar>
+  <div class="esq-explorer">
+    @if(ready()) {
+      <esqExplorer #explorer
+        [esqRestApi]="esqRestApiWrapper()"
+        [esqExplorerCallApi]="esqExplorerCallApiWrapper()">
+      </esqExplorer>
+    }
+  </div>
+  <mat-toolbar>
+    @if (errorMessage().length > 0) {
+      <p class="info-text"><b>{{errorMessage()}}</b></p>
+    } @else {
+      <p class="info-text">{{statusMessage()}}</p>
+    }
+  </mat-toolbar>
 </div>
 
 

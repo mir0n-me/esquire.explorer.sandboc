@@ -8,7 +8,8 @@
 */
 .example-app {
   display: grid;
-  grid-template-rows: fit-content(64px) auto fit-content(64px);
+  height: 100%;
+  grid-template-rows: fit-content(64px) 1fr fit-content(64px);
   
   .mat-toolbar {
     position: relative;
@@ -35,6 +36,13 @@
     vertical-align: middle;
     font-size: 9pt;
     text-align: left;
-    font-weight: normal;  
+    font-weight: normal;
   }
+}
+
+.info-text {
+  margin: 0;
+  font-size: 9pt;
+  font-weight: normal;
+  grid-column: 1 / -1;
 }
