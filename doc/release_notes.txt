@@ -1,6 +1,12 @@
 Esquire Explorer Sandbox release notes
 
 
+v1.2.2-2604.1821 esquire.ui lib v1.2.2; EsqObjectKind API; esquireKinds; dual-mode run; smoke tests
+   :Improvement: EsqObjectKind API adoption; EsqExplorerHostDummy with loading/error signals
+   :Improvement: backend esquireKinds endpoint (datastore, service, controller)
+   :Improvement: dual-mode library run - run-yalc.bat / run-git.bat
+   :Improvement: Playwright smoke tests - smock-test/
+
 v1.0.2-2512.1612 remove esquire source code
     - use esquire.ui library
 

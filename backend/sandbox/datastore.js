@@ -8,6 +8,7 @@
 *
 * History:
 * 12/24/2025 mir0n listvalues_kind moved inside of generic format
+* 04/18/2026 mir0n  PokemonKinds array; esquireKinds endpoint
 *                  kind parameter is requried for esq-cmd, esq-enode
 */
 
@@ -823,6 +824,25 @@ class TreeNodeDto {
 
 }
 
+const PokemonKinds = [
+  { id:  2, name: "Pokemons", treeFlags: "BT", detailed: false },
+  { id:  4, name: "Games",    treeFlags: "BT", detailed: false },
+  { id:  6, name: "TvShows",  treeFlags: "BT", detailed: false },
+  { id:  8, name: "Books",    treeFlags: "BT", detailed: false },
+  { id: 10, name: "Posters",  treeFlags: "BT", detailed: false },
+  { id: 12, name: "Pokemon",  treeFlags: "BT", detailed: true  },
+  { id: 13, name: "Pokemon",  treeFlags: "",   detailed: true  },
+  { id: 14, name: "Game",     treeFlags: "BT", detailed: true  },
+  { id: 15, name: "Game",     treeFlags: "",   detailed: true  },
+  { id: 16, name: "TvShow",   treeFlags: "BT", detailed: true  },
+  { id: 17, name: "TvShow",   treeFlags: "",   detailed: true  },
+  { id: 18, name: "Book",     treeFlags: "BT", detailed: true  },
+  { id: 19, name: "Book",     treeFlags: "",   detailed: true  },
+  { id: 20, name: "Poster",   treeFlags: "BT", detailed: true  },
+  { id: 21, name: "Poster",   treeFlags: "",   detailed: true  },
+  { id: 22, name: "Power",    treeFlags: "BT", detailed: false },
+];
+
 class Datastore {
 
   pkmns = Array(0);
@@ -1260,8 +1280,12 @@ class Datastore {
     return data;
   }
 
+  esquireKinds() {
+    return PokemonKinds;
+  }
+
 }
 
-module.exports = { 
+module.exports = {
   Datastore
 };
