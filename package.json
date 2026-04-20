@@ -36,7 +36,8 @@
     "openapi-sampler": "^1.0.0-beta.15",
     "swagger-ui-express": "^4.0.2",
     "tslib": "^2.3.0",
-    "winston": "^3.19.0"
+    "winston": "^3.19.0",
+    "@mir0n-pro/esquire.ui": "file:./pkg/mir0n-pro-esquire.ui-1.2.2.tgz"
   },
   "devDependencies": {
     "chai": "^4.2.0",
