@@ -6,8 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "lib:local": "yalc add @mir0n-pro/esquire.ui",
-    "lib:git": "yalc remove --all && npm install @mir0n-pro/esquire.ui"
+    "lib:yalc": "yalc add @mir0n-pro/esquire.ui",
+    "lib:git": "yalc remove --all && npm install @mir0n-pro/esquire.ui",
+    "lib:local": "yalc remove --all && npm install ../../esquire.ui.lib/pkg/mir0n-pro-esquire.ui-1.2.2.tgz",
+    "lib:pkg": "yalc remove --all && npm install https://github.com/mir0n-pro/esquire.ui.lib/raw/refs/heads/release/v1.2.2/pkg/mir0n-pro-esquire.ui-1.2.2.tgz"
   },
   "private": true,
   "dependencies": {

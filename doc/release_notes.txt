@@ -1,5 +1,6 @@
 Esquire Explorer Sandbox release notes
 
+v1.2.2-2604.1914 esquire.ui lib: direct .tgx distribution added (to avoid git package access restrictions)
 
 v1.2.2-2604.1821 esquire.ui lib v1.2.2; EsqObjectKind API; esquireKinds; dual-mode run; smoke tests
    :Improvement: EsqObjectKind API adoption; EsqExplorerHostDummy with loading/error signals
